@@ -280,13 +280,14 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const kind = {game:'Spiel', app:'App', web:'Web-App'};
+  const iconOf = a => a.icon || `https://flondy.github.io/app-store/icons/${a.id}.webp`;
 
   $('#f-play').textContent = apps.filter(a => a.play).length;
   $('#f-ios').textContent = apps.filter(a => a.ios).length;
   $('#f-web').textContent = apps.filter(a => a.status === 'web').length;
 
   // home screen
-  $('#home').innerHTML = apps.map(a => `<a href="#p-${a.id}" data-jump="${a.id}"><img src="https://flondy.github.io/app-store/icons/${a.id}.webp" alt="" width="64" height="64"><span>${esc(a.name)}</span></a>`).join('');
+  $('#home').innerHTML = apps.map(a => `<a href="#p-${a.id}" data-jump="${a.id}"><img src="${iconOf(a)}" alt="" width="64" height="64"><span>${esc(a.name)}</span></a>`).join('');
   const clock = () => { const d = new Date(); $('#clock').textContent = d.toLocaleTimeString('de-DE', {hour:'2-digit', minute:'2-digit'}); };
   clock(); setInterval(clock, 30000);
 
@@ -302,7 +303,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
   }
   $('#plist').innerHTML = apps.map(a => `
     <li class="p" id="p-${a.id}" data-type="${a.type}">
-      <img src="https://flondy.github.io/app-store/icons/${a.id}.webp" alt="${esc(a.name)} App-Icon" width="84" height="84" loading="lazy">
+      <img src="${iconOf(a)}" alt="${esc(a.name)} App-Icon" width="84" height="84" loading="lazy">
       <div><h3>${esc(a.full)}${a.status==='dev'?'<span class="state">In Entwicklung</span>':''}</h3>
         <div class="kind">${kind[a.type]} · ${esc(a.category)}</div>
         <div class="go">${links(a)}</div></div>
