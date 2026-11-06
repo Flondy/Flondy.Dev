@@ -325,7 +325,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--soft);fo
 
   // tech icons
   document.querySelectorAll('[data-ic]').forEach(el => {
-    el.innerHTML = el.dataset.ic.split(',').map(id => `<img src="https://flondy.github.io/app-store/icons/${id}.webp" alt="" width="36" height="36" loading="lazy">`).join('');
+    el.innerHTML = el.dataset.ic.split(',').map(id => `<img src="${iconOf(apps.find(x => x.id === id) || {id})}" alt="" width="36" height="36" loading="lazy">`).join('');
   });
 
   // channels
